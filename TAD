@@ -1,0 +1,34 @@
+/*
+Terminar usando TAD
+*/
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int a;
+    int b;
+}Inteiro;
+typedef struct{
+    Inteiro inteiro;
+}racional;
+
+
+
+racional cria_racional(int x,int y){
+    if(y==0){
+    printf("zero");     
+    }else{
+    Inteiro*inteiro = (Inteiro*) malloc(sizeof(Inteiro));
+    inteiro->a=x;
+    inteiro->b=y;
+    
+    return racional;
+        
+    }
+    
+}
+int main() {
+    
+
+    return 0;
+}
