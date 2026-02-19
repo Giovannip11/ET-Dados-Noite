@@ -18,3 +18,33 @@ int main() {
     return 0;
 }
 
+//2)Vetor dinamico
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+    int TAM=1;
+    int *vetor;
+    int i;
+    
+    while(1){
+        
+        if(n<0){
+            break;
+        }
+         
+        printf("Digite um numero positivo:");
+        scanf("%d",&n);
+        vetor = (int *)malloc(TAM* sizeof(int));   
+        for(i=0;i<=TAM;i++){
+            realloc
+        }
+
+
+      }
+    
+    
+    return 0;
+}
+
