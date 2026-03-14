@@ -1,52 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define M 8191 //tamanho
+#define numEntradas 8
 
-#define hash(v,M) (v%M)
 
-typedef struct{
+typedef struct _Hash{
     int chave;
-    char* info;
-}Item;
+    struct _Hash *prox;
+}Hash;
 
-typedef struct STnode* link;
-struct STnode{
-    Item item;
-    link next;
-};
+typedef Hash* Tabela[numEntradas];
 
-link *tab;
 
-void inicHash(Item item){
-    tab = malloc(M *sizeof(link));
-    for (int h = 0; h < M;h++){
-        tab[h] = NULL;
-    }
-}
 
-void STinsere(Item item){
-    int v = item.chave;
-    int h = hash(v, M);
-    link novo = malloc(sizeof(struct STnode));
-    novo->item = item;
-    novo->next = tab[h];
-    tab[h] = novo;
+
+int funcHashing(int num){
+    return num % numEntradas;
 }
 
 
-Item STBusca(int v){
 
-    Item itemnulo;
-    itemnulo.chave = -1;
-    link t;
-    int h = hash(v,M);
-    for(t = tab[h]; t !=NULL; t=t->next){
-        if(t->item.chave==v){
-            break;
+void insereHash(Tabela tabela,int n){
+    Hash *novo;
+    int pos = funcHashing(n);
+    novo = (Hash*)malloc(sizeof(Hash));
+    novo->chave=n;
+    novo->prox=tabela[pos];
+    tabela[pos]=novo;
+}
+
+
+Hash* localizarHash (Tabela tabela, int num){
+    int pos = funcHashing(num);
+    Hash* aux;
+    if (tabela[pos]!=NULL)
+        if(tabela[pos]->chave==num){
+            return (tabela[pos]);
+        }else{
+            aux=tabela[pos]->prox;
         }
-        if(t!=NULL){
-            return t->item;
-            return itemnulo;
+    while (aux!=NULL && aux->chave!=num) {
+        aux=aux->prox;
+        return (aux);
+    }
+        return NULL;
+}
+void excluirHash(Tabela tabela,int num){
+    int pos = funcHashing(num);
+    Hash* aux;
+    if(tabela[pos]!=NULL){
+        if(tabela[pos]!=NULL){
+            if(tabela[pos]->chave==num){
+                aux=tabela[pos];
+                tabela[pos]=tabela[pos]->prox;
+                free(aux);
+            }
+            else{
+                aux=tabela[pos]->prox;
+                Hash* ant=tabela[pos];
+                while (aux !=NULL && aux->chave!=num) {
+                    ant=aux;
+                    aux = aux->prox;
+                }
+                if(aux!=NULL){
+                    ant->prox=aux->prox;
+                    free(aux);
+                }else{
+                    printf("\nNumero nao encontrado");
+                }
+            }
+            printf("\nNumero nao encontrado");
         }
     }
 }
